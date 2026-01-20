@@ -1,18 +1,48 @@
 export default function ResumePreview({ resume }) {
   return (
-    <div className="bg-white p-8 rounded-lg shadow text-gray-900">
-      <h1 className="text-2xl font-bold">{resume.name || "Your Name"}</h1>
+    
+   <div className="resume-page bg-white p-8 rounded-lg shadow text-gray-900">
+    <button
+  onClick={() => window.print()}
+  className="no-print mb-4 text-sm text-blue-600 hover:underline"
+>
+  Print / Save as PDF
+</button>
+
+      <h1 className="text-2xl font-bold">
+        {resume.name || "Your Name"}
+      </h1>
+
       <p className="text-sm text-gray-600">
-        {resume.email || "email@example.com"} •{" "}
-        {resume.phone || "123-456-7890"}
+        {resume.email || "email@example.com"}
+        {resume.phone && ` • ${resume.phone}`}
       </p>
 
-      <hr className="my-4" />
+      {resume.summary && (
+        <>
+          <hr className="my-4" />
+          <p className="text-sm">{resume.summary}</p>
+        </>
+      )}
 
-      <h2 className="text-lg font-semibold mb-1">Summary</h2>
-      <p className="text-sm leading-relaxed text-gray-800">
-        {resume.summary || "Your professional summary will appear here."}
-      </p>
+      {resume.sections.map((section, i) => (
+        <div key={i} className="mt-6">
+          <h2 className="text-lg font-semibold">
+            {section.title}
+          </h2>
+
+          {section.items.map((item, j) => (
+            <div key={j} className="mt-2 text-sm">
+              {section.fields.map((field) => (
+                <p key={field}>
+                  <span className="font-medium">{field}:</span>{" "}
+                  {item[field]}
+                </p>
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

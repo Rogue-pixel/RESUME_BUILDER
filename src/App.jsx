@@ -2,12 +2,13 @@ import { useState } from "react";
 import Form from "./components/Form";
 import ResumePreview from "./components/ResumePreview";
 
-function App() {
+export default function App() {
   const [resume, setResume] = useState({
     name: "",
     email: "",
     phone: "",
     summary: "",
+    sections: [],
   });
 
   return (
@@ -19,5 +20,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
