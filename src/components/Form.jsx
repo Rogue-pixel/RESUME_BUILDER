@@ -1,3 +1,6 @@
+import { designs } from "../designs";
+
+
 export default function Form({ resume, setResume }) {
   const handleBasicChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +19,16 @@ export default function Form({ resume, setResume }) {
       ],
     });
   };
+  const addPresetSection = (title) => {
+    setResume({
+      ...resume,
+      sections: [
+        ...resume.sections,
+        { title, items: [] },
+      ],
+    });
+  };
+  console.log("Active design:", resume.design);
 
   const updateSectionTitle = (index, value) => {
     const updated = [...resume.sections];
@@ -60,7 +73,37 @@ export default function Form({ resume, setResume }) {
 
   return (
     <div className="no-print bg-white p-6 rounded-lg shadow">
-      <h2 className="text-xl font-semibold mb-4">Resume Details</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold">
+          Resume Details
+        </h2>
+
+        <div className="flex gap-2">
+          {/* Preview button */}
+          <button
+            onClick={() => {
+              localStorage.setItem(
+                "resume-data",
+                JSON.stringify(resume)
+              );
+              window.open("/preview", "_blank");
+            }}
+            className="text-sm px-3 py-1.5 border rounded hover:bg-gray-100"
+          >
+            Preview
+          </button>
+
+          {/* Print button */}
+          <button
+            onClick={() => window.print()}
+            className="text-sm px-3 py-1.5 bg-black text-white rounded hover:bg-gray-800"
+          >
+            Print
+          </button>
+        </div>
+      </div>
+
+
 
       {/* Basic Info */}
       <div className="space-y-3 mb-6">
@@ -71,6 +114,26 @@ export default function Form({ resume, setResume }) {
           onChange={handleBasicChange}
           className="w-full border p-2 rounded"
         />
+        <label className="text-xs font-semibold block mb-1">
+          Profile Photo (optional)
+        </label>
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+              setResume({ ...resume, photo: reader.result });
+            };
+            reader.readAsDataURL(file);
+          }}
+          className="text-sm mb-4"
+        />
+
         <input
           name="email"
           placeholder="Email"
@@ -78,6 +141,14 @@ export default function Form({ resume, setResume }) {
           onChange={handleBasicChange}
           className="w-full border p-2 rounded"
         />
+        <input
+          name="location"
+          placeholder="City, Country"
+          value={resume.location}
+          onChange={handleBasicChange}
+          className="w-full border p-2 rounded"
+        />
+
         <input
           name="phone"
           placeholder="Phone"
@@ -95,6 +166,45 @@ export default function Form({ resume, setResume }) {
         />
       </div>
 
+      <div className="flex gap-3 mb-4 text-xs">
+        <button onClick={() => addPresetSection("Experience")} className="hover:underline">
+          + Experience
+        </button>
+        <button onClick={() => addPresetSection("Projects")} className="hover:underline">
+          + Projects
+        </button>
+        <button onClick={() => addPresetSection("Education")} className="hover:underline">
+          + Education
+        </button>
+        <button onClick={() => addPresetSection("Skills")} className="hover:underline">
+          + Skills
+        </button>
+      </div>
+
+      <div className="mb-4">
+        <label className="text-xs font-semibold block mb-1">
+          Design Preset
+        </label>
+
+        <select
+          value={resume.design}
+          onChange={(e) =>
+            setResume({ ...resume, design: e.target.value })
+          }
+          className="border p-2 rounded text-sm w-full"
+        >
+          {Object.entries(designs).map(([key, design]) => (
+            <option key={key} value={key}>
+              {design.label}
+            </option>
+          ))}
+        </select>
+
+
+      </div>
+
+
+
       <hr className="my-6" />
 
       <button
@@ -103,6 +213,8 @@ export default function Form({ resume, setResume }) {
       >
         + Add Section
       </button>
+
+
 
       {resume.sections.map((section, sectionIndex) => (
         <div key={sectionIndex} className="border p-4 rounded mb-6">
