@@ -1,4 +1,6 @@
 import { designs } from "../designs";
+import html2pdf from "html2pdf.js";
+
 
 
 export default function Form({ resume, setResume }) {
@@ -6,6 +8,23 @@ export default function Form({ resume, setResume }) {
     const { name, value } = e.target;
     setResume({ ...resume, [name]: value });
   };
+
+  const downloadPDF = () => {
+    const element = document.querySelector(".resume-page");
+
+    html2pdf()
+      .set({
+        margin: 10,
+        filename: "resume.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      })
+      .from(element)
+      .save();
+  };
+
+
 
   const addSection = () => {
     setResume({
@@ -95,11 +114,14 @@ export default function Form({ resume, setResume }) {
 
           {/* Print button */}
           <button
-            onClick={() => window.print()}
-            className="text-sm px-3 py-1.5 bg-black text-white rounded hover:bg-gray-800"
+            onClick={downloadPDF}
+            className="text-sm px-3 py-1.5 border rounded hover:bg-gray-100"
+
           >
-            Print
+            Download PDF
           </button>
+
+          
         </div>
       </div>
 

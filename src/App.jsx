@@ -12,7 +12,7 @@ const DEFAULT_RESUME = {
   photo: "",
   summary: "",
   sections: [],
-  design: "modernBlue",
+  design: "Emerald",
 };
 
 export default function App() {

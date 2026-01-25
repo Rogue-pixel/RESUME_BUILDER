@@ -43,3 +43,50 @@
     display: none !important;
   }
 }
+@media print {
+  /* Disable editor behaviors */
+  * {
+    overflow: visible !important;
+    position: static !important;
+  }
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+
+  body {
+    background: white;
+    margin: 0;
+  }
+
+  /* Force linear document flow */
+  * {
+    overflow: visible !important;
+    position: static !important;
+  }
+
+  .resume-page {
+    width: auto !important;
+    box-shadow: none !important;
+  }
+
+  /* Prevent ugly page breaks */
+  .resume-section {
+    page-break-inside: avoid;
+  }
+
+  h1, h2 {
+    page-break-after: avoid;
+  }
+
+  ul, li {
+    page-break-inside: avoid;
+  }
+
+  /* Hide editor UI */
+  .no-print {
+    display: none !important;
+  }
+}

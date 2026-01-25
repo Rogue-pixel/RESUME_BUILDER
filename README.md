@@ -1,17 +1,82 @@
-# React + Vite
+# Resume Builder — Free, Anonymous, Minimal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, minimalist resume builder built with **React + Vite + Tailwind CSS**.
 
-Currently, two official plugins are available:
+No accounts.  
+No tracking.  
+No backend.  
+Your data never leaves your browser.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Designed to feel like a **real document editor**, not a form.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🧩 **Dynamic sections**
+  - Add any section (Experience, Projects, Education, Skills, etc.)
+  - Bullet-point based entries for clean resumes
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# RESUME_BUILDER
+- 🎨 **Multiple design presets**
+  - Modern Blue
+  - Charcoal
+  - Emerald
+  - Burgundy
+  - Slate
+  - Classic (no color)
+
+- 🖼️ **Optional profile photo**
+  - Clean header layout
+  - ATS-safe (image is purely visual)
+
+- 📍 **Location / City support**
+
+- 🖨️ **Print & PDF friendly**
+  - True A4 layout
+  - Controlled page breaks
+  - No section splitting
+  - Works with “Save as PDF”
+
+- 💾 **Autosave**
+  - Resume is saved automatically using `localStorage`
+  - Refresh-safe
+
+- 🔒 **Fully anonymous**
+  - No sign-up
+  - No backend
+  - No analytics
+
+---
+
+## 🧠 Design Philosophy
+
+- **Simplicity over features**
+- **Document-first**, not webpage-first
+- **Editor UX** similar to professional resume tools
+- **ATS-safe layouts**
+- Avoid unnecessary abstraction
+
+This project intentionally avoids:
+- Icons
+- Multi-column text by default
+- Heavy styling
+- AI-generated content
+
+---
+
+## 🛠 Tech Stack
+
+- **React** (with Hooks)
+- **Vite**
+- **Tailwind CSS (v3)**
+- Browser `localStorage`
+
+No backend. No database.
+
+---
+
+## 🚀 Getting Started
+
+```bash
+npm install
+npm run dev
