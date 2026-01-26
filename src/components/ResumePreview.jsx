@@ -4,68 +4,72 @@ export default function ResumePreview({ resume }) {
   const theme = designs[resume.design] || designs.modernBlue;
 
   return (
-    <div className="flex justify-center bg-gray-100 py-8">
+    <div className="flex justify-center bg-gray-100 py-4 sm:py-8">
       <div
-        className={`resume-page bg-white shadow-lg ${theme.page}`}
-        style={{ width: "850px" }}
+        className={`resume-page bg-white shadow ${theme.page} w-full md:w-[800px] print:w-full print:shadow-none`}
       >
-        {/* ================= HEADER (KEEP TOGETHER IN PRINT) ================= */}
-        <div
-          className={`${theme.headerBg} ${theme.headerText} p-6 resume-section`}
-        >
-          <div className="flex justify-between items-start">
+        {/* ================= HEADER ================= */}
+        <div className={`${theme.headerBg} ${theme.headerText} p-6`}>
+          <div className="flex flex-row justify-between items-start gap-4">
+
             {/* Left: Photo + Name block */}
-            <div className="flex items-start gap-4">
-              {/* Photo (optional) */}
+            {/* REMOVED 'truncate' and added 'break-words' */}
+            <div className="flex items-start gap-3 flex-1">
               {resume.photo && (
                 <img
                   src={resume.photo}
                   alt="Profile"
-                  className="w-20 h-20 rounded-full object-cover border"
+                  className="w-14 h-14 sm:w-20 sm:h-20 rounded-full object-cover border shrink-0"
                 />
               )}
 
-              {/* Name + email + location */}
-              <div>
-                <h1 className={theme.name}>
+              <div className="flex-1 min-w-0">
+                <h1 className={`${theme.name} text-lg sm:text-2xl font-bold break-words leading-tight`}>
                   {resume.name || "Your Name"}
                 </h1>
 
-                <p className="text-sm opacity-90 mt-1">
-                  {resume.email || "email@example.com"}
-                </p>
+                {resume.email && (
+                  <p className="text-sm mt-1 break-words opacity-90">
+                    {resume.email}
+                  </p>
+                )}
 
                 {resume.location && (
-                  <p className="text-sm opacity-80">
+                  <p className="text-sm break-words opacity-90">
                     {resume.location}
                   </p>
                 )}
               </div>
             </div>
 
-            {/* Right: Phone only */}
+            {/* Right: Phone */}
             {resume.phone && (
-              <p className="text-sm whitespace-nowrap mt-1">
-                {resume.phone}
-              </p>
+              <div className="shrink-0 text-right">
+                <p className="text-sm font-medium whitespace-nowrap">
+                  {resume.phone}
+                </p>
+              </div>
             )}
           </div>
         </div>
 
+
         {/* ================= CONTENT ================= */}
-        <div className="p-8">
+        <div className="p-6">
+          {/* Summary */}
           {resume.summary && (
-            <p className={`${theme.summary} resume-section`}>
+            <p className={`${theme.summary} resume-section whitespace-pre-line`}>
               {resume.summary}
             </p>
           )}
 
-          {resume.sections.map((section, i) => (
+          {/* Sections */}
+          {resume.sections?.map((section, sIndex) => (
             <div
-              key={i}
+              key={sIndex}
               className="mt-6 resume-section"
             >
-              {/* Section header + separator */}
+              {/* Section title */}
               <div className="mb-2">
                 <h2 className={theme.sectionTitle}>
                   {section.title}
@@ -73,11 +77,13 @@ export default function ResumePreview({ resume }) {
                 <div className="h-px w-12 bg-current opacity-40"></div>
               </div>
 
-              {/* Section bullets */}
+              {/* Bullet points */}
               <ul className={theme.bullet}>
                 {section.items.map(
-                  (item, j) =>
-                    item.trim() && <li key={j}>{item}</li>
+                  (item, iIndex) =>
+                    item.trim() && (
+                      <li key={iIndex} className="break-words">{item}</li>
+                    )
                 )}
               </ul>
             </div>
